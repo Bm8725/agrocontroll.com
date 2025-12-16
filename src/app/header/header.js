@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
-import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
@@ -18,9 +18,9 @@ export default function Navbar() {
       title: "Products",
       href: "#products",
       submenu: [
-        { title: "PCB Controllers", href: "/404/" },
-        { title: "Firmware", href: "/404/" },
-        { title: "Analytics", href: "#analytics" },
+        { title: "w200 ECO WASH CONTROLLER", href: "/404/" },
+        { title: "iT200 ECO SMART TANK CONTROLLER", href: "/404/" },
+        { title: "iFARM MANAGEMENT ", href: "/404/" },
       ],
     },
     { title: "Solutions", href: "/404/" },
@@ -30,7 +30,6 @@ export default function Navbar() {
 
   const social = [
     { icon: <FaLinkedin />, href: "https://linkedin.com" },
-
     { icon: <FaGithub />, href: "https://github.com" },
   ];
 
@@ -98,7 +97,7 @@ export default function Navbar() {
             </div>
 
             {/* Navigation */}
-            <nav className="flex flex-col items-start justify-start gap-4 mt-6 px-6">
+            <nav className="flex flex-col items-start justify-start gap-2 mt-6 px-6">
               {menuItems.map((item, idx) => (
                 <MobileMenuItem key={idx} item={item} setMenuOpen={setMenuOpen} />
               ))}
@@ -109,8 +108,6 @@ export default function Navbar() {
               >
                 connect
               </a>
-
-
             </nav>
           </motion.div>
         )}
@@ -180,7 +177,6 @@ function DesktopMenu({ menuItems, social }) {
       >
         connect
       </a>
-
     </nav>
   );
 }
@@ -189,21 +185,19 @@ function DesktopMenu({ menuItems, social }) {
 function MobileMenuItem({ item, setMenuOpen }) {
   const [open, setOpen] = useState(false);
 
-  return (
-    <div className="w-full">
-      <button
-        onClick={() => item.submenu && setOpen(!open)}
-        className="w-full text-left flex justify-between items-center text-xl font-semibold uppercase tracking-wide text-gray-900 px-6 py-3 rounded-full hover:bg-blue-50 transition duration-300"
-      >
-        {item.title}
-        {item.submenu && (
+  if (item.submenu) {
+    return (
+      <div className="w-full">
+        <button
+          onClick={() => setOpen(!open)}
+          className="w-full text-left flex justify-between items-center text-lg font-semibold uppercase tracking-wide text-gray-900 px-6 py-3 rounded-full hover:bg-blue-50 transition"
+        >
+          {item.title}
           <FiChevronDown
             className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`}
           />
-        )}
-      </button>
+        </button>
 
-      {item.submenu && (
         <AnimatePresence>
           {open && (
             <motion.div
@@ -211,14 +205,14 @@ function MobileMenuItem({ item, setMenuOpen }) {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="flex flex-col items-start overflow-hidden"
+              className="flex flex-col pl-6 overflow-hidden"
             >
               {item.submenu.map((sub, i) => (
                 <Link
                   key={i}
                   href={sub.href}
                   onClick={() => setMenuOpen(false)}
-                  className="w-full text-left text-lg text-gray-700 px-8 py-2 rounded-full hover:bg-blue-50 transition duration-200"
+                  className="w-full text-left text-base text-gray-700 px-4 py-2 rounded-md hover:bg-blue-50 transition duration-200"
                 >
                   {sub.title}
                 </Link>
@@ -226,7 +220,17 @@ function MobileMenuItem({ item, setMenuOpen }) {
             </motion.div>
           )}
         </AnimatePresence>
-      )}
-    </div>
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      href={item.href}
+      onClick={() => setMenuOpen(false)}
+      className="w-full block text-left text-lg font-semibold uppercase tracking-wide text-gray-900 px-6 py-3 rounded-full hover:bg-blue-50 transition duration-200"
+    >
+      {item.title}
+    </Link>
   );
 }
