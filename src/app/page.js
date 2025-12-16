@@ -80,7 +80,7 @@ export default function Home() {
         >
           {/* Brand badge */}
           <div className="mx-auto mb-6 w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg">
-            <span className="text-white font-bold text-lg">SM</span>
+            <span className="text-white font-bold text-lg">AG</span>
           </div>
           <motion.h1
             initial={{ y: 20, opacity: 0 }}
@@ -109,7 +109,7 @@ export default function Home() {
           >
             <a
               href="#products"
-              className="px-8 py-3 rounded-full bg-emerald-600 text-white font-semibold uppercase tracking-wide hover:bg-emerald-500 transition shadow-md hover:shadow-lg"
+              className="px-8 py-3 rounded-full bg-pink-600 text-white font-semibold uppercase tracking-wide hover:bg-pink-800 transition shadow-md hover:shadow-lg"
             >
               Solutions
             </a>
@@ -123,61 +123,61 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* PRODUCTS */}
-      <section id="products" className="py-24 px-6 bg-zinc-900 text-gray-100">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-3xl md:text-4xl font-semibold text-center mb-16"
-        >
-          Products & Services
-        </motion.h2>
+     {/* PRODUCTS */}
+<section id="products" className="py-24 px-6 bg-gray-50 text-gray-900">
+  <motion.h2
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+    className="text-3xl md:text-4xl font-semibold text-center mb-16"
+  >
+    Products & Services
+  </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-          {products.map((item, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ y: 40, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.2, duration: 0.6 }}
-              className="p-8 bg-gray-800 border border-gray-700 rounded-xl hover:shadow-xl transition hover:scale-105"
-            >
-              <h3 className="text-lg font-semibold mb-4">{item.title}</h3>
-              <p className="text-gray-300">{item.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+    {products.map((item, idx) => (
+      <motion.div
+        key={idx}
+        initial={{ y: 40, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: idx * 0.2, duration: 0.6 }}
+        className="p-8 bg-white border border-gray-200 rounded-xl hover:shadow-lg transition hover:scale-105"
+      >
+        <h3 className="text-lg font-semibold mb-4 text-gray-900">{item.title}</h3>
+        <p className="text-gray-700">{item.desc}</p>
+      </motion.div>
+    ))}
+  </div>
+</section>
 
-      {/* FEATURES */}
-      <section id="features" className="py-24 px-6 bg-gray-900 text-gray-100">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-3xl md:text-4xl font-semibold text-center mb-16"
-        >
-          Why Choose Smart Manufacturing
-        </motion.h2>
+{/* FEATURES */}
+<section id="features" className="py-24 px-6 bg-white text-gray-900">
+  <motion.h2
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+    className="text-3xl md:text-4xl font-semibold text-center mb-16"
+  >
+    Why Choose Smart Manufacturing
+  </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-          {features.map((item, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ y: 30, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.2, duration: 0.6 }}
-              className="p-8 border border-gray-700 rounded-xl hover:shadow-lg transition hover:scale-105"
-            >
-              <h4 className="text-lg font-semibold mb-3">{item.title}</h4>
-              <p className="text-gray-300">{item.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+    {features.map((item, idx) => (
+      <motion.div
+        key={idx}
+        initial={{ y: 30, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: idx * 0.2, duration: 0.6 }}
+        className="p-8 border border-gray-200 rounded-xl hover:shadow-lg transition hover:scale-105"
+      >
+        <h4 className="text-lg font-semibold mb-3 text-gray-900">{item.title}</h4>
+        <p className="text-gray-700">{item.desc}</p>
+      </motion.div>
+    ))}
+  </div>
+</section>
 
       {/* CONTACT */}
       <section id="contact" className="py-24 px-6 bg-gray-800 text-center text-gray-100">
