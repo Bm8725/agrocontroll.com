@@ -8,6 +8,8 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [visible, setVisible] = useState(true);
   const [scrolled, setScrolled] = useState(false);
 
   const menuItems = [
@@ -32,149 +34,90 @@ export default function Navbar() {
     { icon: <FaGithub />, href: "https://github.com" },
   ];
 
+  // Scroll detection
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 24);
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setVisible(false);
+      } else {
+        setVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   return (
     <>
-      {/* HEADER */}
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-white border-b border-zinc-200 shadow-sm"
-            : "bg-white/80 backdrop-blur"
+      {/* Floating Header */}
+      <motion.header
+        initial={{ y: 0 }}
+        animate={{ y: visible ? 0 : -150 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-[90%] md:w-[80%] lg:w-[70%] rounded-3xl backdrop-blur-md shadow-lg transition-all duration-300 ${
+          scrolled ? "bg-white border border-gray-200" : "bg-white/80"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          {/* BRAND */}
-          <Link href="#hero" className="flex items-center gap-3 group">
-            <div className="relative">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">AG</span>
-              </div>
-              <div className="absolute inset-0 rounded-full ring-1 ring-emerald-600/40 group-hover:ring-emerald-600 transition" />
-            </div>
-            <span className="font-semibold uppercase tracking-wide text-zinc-900">
-              agro-controll.com
-            </span>
-          </Link>
-
-          {/* DESKTOP MENU */}
-          <nav className="hidden md:flex items-center gap-4">
-            {menuItems.map((item, idx) => (
-              <div key={idx} className="relative group">
-                <Link
-                  href={item.href}
-                  className="flex items-center gap-1 px-4 py-2 text-sm font-medium uppercase tracking-wide text-zinc-700 hover:text-zinc-900 rounded-full transition duration-300"
-                >
-                  {item.title}
-                  {item.submenu && (
-                    <FiChevronDown className="ml-1 transition-transform duration-300 group-hover:rotate-180" />
-                  )}
-                </Link>
-
-                {item.submenu && (
-                  <AnimatePresence>
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute left-0 mt-2 w-48 bg-white border border-zinc-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300"
-                    >
-                      {item.submenu.map((sub, i) => (
-                        <Link
-                          key={i}
-                          href={sub.href}
-                          className="block px-4 py-2 text-sm text-zinc-700 hover:bg-emerald-50 hover:text-zinc-900 transition duration-200"
-                        >
-                          {sub.title}
-                        </Link>
-                      ))}
-                    </motion.div>
-                  </AnimatePresence>
-                )}
-              </div>
-            ))}
-
-            <a
-              href="mailto:contact@agrocontroll.com"
-              className="ml-4 px-6 py-2 rounded-full bg-emerald-600 text-white text-sm font-semibold uppercase tracking-wide hover:bg-emerald-500 transition duration-300"
-            >
-              connect
-            </a>
-
-            <div className="flex gap-3 ml-4">
-              {social.map((item, idx) => (
-                <a
-                  key={idx}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-zinc-600 hover:text-zinc-900 transition text-lg duration-300"
-                >
-                  {item.icon}
-                </a>
-              ))}
-            </div>
-          </nav>
-
-          {/* MOBILE BUTTON */}
+        <div className="flex items-center justify-between h-16 px-6">
+          <Brand />
+          <div className="hidden md:flex items-center gap-4">
+            <DesktopMenu menuItems={menuItems} social={social} />
+          </div>
           <button
-            className="md:hidden text-zinc-800"
+            className="md:hidden text-gray-700"
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
           >
             <FiMenu size={24} />
           </button>
         </div>
-      </header>
+      </motion.header>
 
-      {/* MOBILE MENU */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ type: "tween", duration: 0.3 }}
-            className="fixed inset-0 z-50 bg-white"
+            initial={{ x: "100%", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: "100%", opacity: 0 }}
+            transition={{ type: "tween", duration: 0.35, ease: "easeInOut" }}
+            className="fixed inset-0 z-50 bg-white flex flex-col overflow-y-auto"
           >
-            <div className="h-16 px-6 flex items-center justify-between border-b border-zinc-200">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">AG</span>
-                </div>
-                <span className="font-semibold uppercase text-zinc-900">Menu</span>
-              </div>
+            {/* Header */}
+            <div className="h-16 px-6 flex items-center justify-between border-b border-gray-200">
+              <Brand label="Menu" />
               <button onClick={() => setMenuOpen(false)}>
                 <FiX size={26} />
               </button>
             </div>
 
-            <nav className="flex flex-col items-center justify-center gap-5 h-[calc(100%-4rem)] px-6 overflow-y-auto">
+            {/* Navigation */}
+            <nav className="flex flex-col items-start justify-start gap-4 mt-6 px-6">
               {menuItems.map((item, idx) => (
                 <MobileMenuItem key={idx} item={item} setMenuOpen={setMenuOpen} />
               ))}
 
               <a
                 href="mailto:contact@agrocontroll.com"
-                className="mt-6 w-full px-6 py-3 rounded-full bg-emerald-600 text-white font-semibold uppercase tracking-wide text-center transition duration-300 hover:bg-emerald-500"
+                className="mt-6 w-full px-6 py-3 rounded-full bg-blue-600 text-white font-semibold uppercase tracking-wide text-center hover:bg-blue-500 transition duration-300"
               >
                 connect
               </a>
 
-              <div className="flex gap-4 mt-6">
+              <div className="flex gap-6 mt-6 mb-6 text-2xl">
                 {social.map((item, idx) => (
                   <a
                     key={idx}
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-zinc-600 hover:text-zinc-900 text-2xl transition duration-300"
+                    className="text-gray-700 hover:text-gray-900 transition duration-300"
                   >
                     {item.icon}
                   </a>
@@ -188,7 +131,86 @@ export default function Navbar() {
   );
 }
 
-// Component for mobile menu item with submenu
+// Brand
+function Brand({ label }) {
+  return (
+    <Link href="#hero" className="flex items-center gap-3 group">
+      <div className="relative">
+        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center">
+          <span className="text-white font-bold text-sm">AG</span>
+        </div>
+        <div className="absolute inset-0 rounded-full ring-1 ring-indigo-600/40 group-hover:ring-indigo-600 transition" />
+      </div>
+      <span className="font-semibold uppercase tracking-wide text-gray-900">
+        {label || "agro-controll.com"}
+      </span>
+    </Link>
+  );
+}
+
+// Desktop Menu
+function DesktopMenu({ menuItems, social }) {
+  return (
+    <nav className="flex items-center gap-4">
+      {menuItems.map((item, idx) => (
+        <div key={idx} className="relative group">
+          <Link
+            href={item.href}
+            className="flex items-center gap-1 px-4 py-2 text-sm font-medium uppercase tracking-wide text-gray-700 hover:text-gray-900 rounded-full transition duration-300"
+          >
+            {item.title}
+            {item.submenu && <FiChevronDown className="ml-1 transition-transform duration-300 group-hover:rotate-180" />}
+          </Link>
+
+          {item.submenu && (
+            <AnimatePresence>
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300"
+              >
+                {item.submenu.map((sub, i) => (
+                  <Link
+                    key={i}
+                    href={sub.href}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-gray-900 transition duration-200"
+                  >
+                    {sub.title}
+                  </Link>
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          )}
+        </div>
+      ))}
+
+      <a
+        href="mailto:contact@agrocontroll.com"
+        className="ml-4 px-6 py-2 rounded-full bg-blue-600 text-white text-sm font-semibold uppercase tracking-wide hover:bg-blue-500 transition duration-300"
+      >
+        connect
+      </a>
+
+      <div className="flex gap-3 ml-4">
+        {social.map((item, idx) => (
+          <a
+            key={idx}
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-700 hover:text-gray-900 transition text-lg duration-300"
+          >
+            {item.icon}
+          </a>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
+// Mobile Menu Item
 function MobileMenuItem({ item, setMenuOpen }) {
   const [open, setOpen] = useState(false);
 
@@ -196,10 +218,14 @@ function MobileMenuItem({ item, setMenuOpen }) {
     <div className="w-full">
       <button
         onClick={() => item.submenu && setOpen(!open)}
-        className="w-full text-left flex justify-between items-center text-xl font-semibold uppercase tracking-wide text-zinc-900 px-6 py-3 rounded-full hover:bg-emerald-50 transition duration-300"
+        className="w-full text-left flex justify-between items-center text-xl font-semibold uppercase tracking-wide text-gray-900 px-6 py-3 rounded-full hover:bg-blue-50 transition duration-300"
       >
         {item.title}
-        {item.submenu && <FiChevronDown className={`transition-transform duration-300 ${open ? 'rotate-180' : ''}`} />}
+        {item.submenu && (
+          <FiChevronDown
+            className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+          />
+        )}
       </button>
 
       {item.submenu && (
@@ -207,17 +233,17 @@ function MobileMenuItem({ item, setMenuOpen }) {
           {open && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
+              animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="flex flex-col items-center overflow-hidden"
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="flex flex-col items-start overflow-hidden"
             >
               {item.submenu.map((sub, i) => (
                 <Link
                   key={i}
                   href={sub.href}
                   onClick={() => setMenuOpen(false)}
-                  className="w-full text-center text-lg text-zinc-700 px-6 py-2 rounded-full hover:bg-emerald-50 transition duration-200"
+                  className="w-full text-left text-lg text-gray-700 px-8 py-2 rounded-full hover:bg-blue-50 transition duration-200"
                 >
                   {sub.title}
                 </Link>
