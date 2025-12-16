@@ -13,24 +13,24 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   const menuItems = [
-    { title: "Home", href: "#hero" },
+    { title: "Home", href: "/" },
     {
       title: "Products",
       href: "#products",
       submenu: [
-        { title: "PCB Controllers", href: "#pcb" },
-        { title: "Firmware", href: "#firmware" },
+        { title: "PCB Controllers", href: "/404/" },
+        { title: "Firmware", href: "/404/" },
         { title: "Analytics", href: "#analytics" },
       ],
     },
-    { title: "Solutions", href: "#solutions" },
-    { title: "Industries", href: "#industries" },
-    { title: "About", href: "#about" },
+    { title: "Solutions", href: "/404/" },
+    { title: "Industries", href: "/industries/" },
+    { title: "About", href: "/" },
   ];
 
   const social = [
     { icon: <FaLinkedin />, href: "https://linkedin.com" },
-    { icon: <FaTwitter />, href: "https://twitter.com" },
+
     { icon: <FaGithub />, href: "https://github.com" },
   ];
 
@@ -110,19 +110,7 @@ export default function Navbar() {
                 connect
               </a>
 
-              <div className="flex gap-6 mt-6 mb-6 text-2xl">
-                {social.map((item, idx) => (
-                  <a
-                    key={idx}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-700 hover:text-gray-900 transition duration-300"
-                  >
-                    {item.icon}
-                  </a>
-                ))}
-              </div>
+
             </nav>
           </motion.div>
         )}
@@ -134,7 +122,7 @@ export default function Navbar() {
 // Brand
 function Brand({ label }) {
   return (
-    <Link href="#hero" className="flex items-center gap-3 group">
+    <Link href="/" className="flex items-center gap-3 group">
       <div className="relative">
         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center">
           <span className="text-white font-bold text-sm">AG</span>
@@ -193,19 +181,6 @@ function DesktopMenu({ menuItems, social }) {
         connect
       </a>
 
-      <div className="flex gap-3 ml-4">
-        {social.map((item, idx) => (
-          <a
-            key={idx}
-            href={item.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-700 hover:text-gray-900 transition text-lg duration-300"
-          >
-            {item.icon}
-          </a>
-        ))}
-      </div>
     </nav>
   );
 }
