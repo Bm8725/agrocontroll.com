@@ -36,20 +36,42 @@ export default function Home() {
   return (
     <main className="flex flex-col overflow-x-hidden font-sans">
       {/* HERO */}
-      <section className="relative py-32 px-6 overflow-hidden">
-        {/* Animated gradient background */}
-        <motion.div
-          animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 bg-gradient-to-br from-purple-900 via-indigo-900 to-emerald-800 bg-[length:200%_200%] z-0"
-        />
-
-        {/* Semi-transparent overlay */}
+      <section className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-purple-900 via-indigo-900 to-emerald-800">
+        {/* Overlay */}
         <div className="absolute inset-0 bg-black/30 z-10" />
 
-        {/* Subtle animated grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:32px_32px] animate-pulse-slow z-20" />
+        {/* Animated rectangles grid */}
+        <div className="absolute inset-0 z-20">
+          {[...Array(12)].map((_, i) => {
+            const size = Math.random() * 80 + 40;
+            const top = Math.random() * 100;
+            const left = Math.random() * 100;
+            const delay = Math.random() * 5;
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: [0.1, 0.4, 0.1], y: [0, -10, 0] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 6 + Math.random() * 4,
+                  delay,
+                  ease: "easeInOut",
+                }}
+                className="absolute rounded-lg"
+                style={{
+                  width: size,
+                  height: size / 2,
+                  top: `${top}%`,
+                  left: `${left}%`,
+                  background: "rgba(255,255,255,0.15)",
+                }}
+              />
+            );
+          })}
+        </div>
 
+        {/* Hero content */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -60,7 +82,6 @@ export default function Home() {
           <div className="mx-auto mb-6 w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg">
             <span className="text-white font-bold text-lg">SM</span>
           </div>
-
           <motion.h1
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -72,7 +93,6 @@ export default function Home() {
               for Smart Livestock Farms
             </span>
           </motion.h1>
-
           <motion.p
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -81,7 +101,6 @@ export default function Home() {
           >
             Embedded systems, ARM Cortex-M firmware, and industrial software engineered for reliable, scalable farm automation.
           </motion.p>
-
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -96,7 +115,7 @@ export default function Home() {
             </a>
             <a
               href="#contact"
-              className="px-8 py-3 rounded-full border border-gray-300 text-white font-semibold uppercase tracking-wide hover:bg-gray-800 transition"
+              className="px-8 py-3 rounded-full border border-gray-300 text-gray-100 font-semibold uppercase tracking-wide hover:bg-gray-100 hover:text-gray-900 transition"
             >
               Contact
             </a>
@@ -105,12 +124,12 @@ export default function Home() {
       </section>
 
       {/* PRODUCTS */}
-      <section id="products" className="py-24 px-6 bg-zinc-900 text-white">
+      <section id="products" className="py-24 px-6 bg-zinc-900 text-gray-100">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-3xl md:text-4xl font-semibold text-center mb-16 text-emerald-300"
+          className="text-3xl md:text-4xl font-semibold text-center mb-16"
         >
           Products & Services
         </motion.h2>
@@ -123,9 +142,9 @@ export default function Home() {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.2, duration: 0.6 }}
-              className="p-8 bg-zinc-800 border border-zinc-700 rounded-xl hover:shadow-2xl transition hover:scale-105"
+              className="p-8 bg-gray-800 border border-gray-700 rounded-xl hover:shadow-xl transition hover:scale-105"
             >
-              <h3 className="text-lg font-semibold mb-4 text-emerald-300">{item.title}</h3>
+              <h3 className="text-lg font-semibold mb-4">{item.title}</h3>
               <p className="text-gray-300">{item.desc}</p>
             </motion.div>
           ))}
@@ -133,12 +152,12 @@ export default function Home() {
       </section>
 
       {/* FEATURES */}
-      <section id="features" className="py-24 px-6 bg-zinc-950 text-white">
+      <section id="features" className="py-24 px-6 bg-gray-900 text-gray-100">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-3xl md:text-4xl font-semibold text-center mb-16 text-emerald-300"
+          className="text-3xl md:text-4xl font-semibold text-center mb-16"
         >
           Why Choose Smart Manufacturing
         </motion.h2>
@@ -151,9 +170,9 @@ export default function Home() {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.2, duration: 0.6 }}
-              className="p-8 border border-zinc-700 rounded-xl hover:shadow-xl transition hover:scale-105"
+              className="p-8 border border-gray-700 rounded-xl hover:shadow-lg transition hover:scale-105"
             >
-              <h4 className="text-lg font-semibold mb-3 text-emerald-300">{item.title}</h4>
+              <h4 className="text-lg font-semibold mb-3">{item.title}</h4>
               <p className="text-gray-300">{item.desc}</p>
             </motion.div>
           ))}
@@ -161,12 +180,12 @@ export default function Home() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="py-24 px-6 bg-black text-center">
+      <section id="contact" className="py-24 px-6 bg-gray-800 text-center text-gray-100">
         <motion.h2
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="text-3xl md:text-4xl font-semibold mb-6 text-emerald-300"
+          className="text-3xl md:text-4xl font-semibold mb-6"
         >
           Let’s Build Reliable Automation
         </motion.h2>
@@ -174,14 +193,14 @@ export default function Home() {
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="mb-10 text-gray-400 max-w-2xl mx-auto"
+          className="mb-10 max-w-2xl mx-auto text-gray-300"
         >
           Contact us for embedded development, system integration, or custom industrial automation solutions.
         </motion.p>
         <motion.a
-          whileHover={{ scale: 1.05, boxShadow: "0px 8px 20px rgba(0,0,0,0.4)" }}
+          whileHover={{ scale: 1.05, boxShadow: "0px 8px 20px rgba(0,0,0,0.2)" }}
           href="mailto:contact@agrocontroll.com"
-          className="px-8 py-4 rounded-full bg-emerald-600 text-white font-semibold uppercase tracking-wide hover:bg-emerald-500 transition shadow-lg"
+          className="px-8 py-4 rounded-full bg-emerald-600 text-white font-semibold uppercase tracking-wide hover:bg-emerald-500 transition shadow-md"
         >
           Contact Us
         </motion.a>
