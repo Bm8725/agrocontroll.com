@@ -21,12 +21,12 @@ export default function Footer() {
     { title: "Embedded Systems", href: "#products" },
     { title: "Industrial Firmware", href: "#products" },
     { title: "Analytics & Software", href: "#products" },
-    { title: "Consulting", href: "#contact" },
+    { title: "Consulting", href: "#products" },
   ];
 
   return (
     <footer className="bg-gray-900 text-gray-300 pt-12 pb-6">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Brand */}
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3">
@@ -38,7 +38,7 @@ export default function Footer() {
             </span>
           </div>
           <p className="text-gray-400 text-sm">
-            Industrial automation solutions, embedded systems, and analytics for smart livestock and commercial farms.
+            Delivering professional industrial automation solutions, embedded systems, and software analytics for modern smart farms.
           </p>
           <div className="flex gap-4 mt-2">
             {social.map((item, idx) => (
@@ -87,14 +87,6 @@ export default function Footer() {
               </li>
             ))}
           </ul>
-        </div>
-
-        {/* Contact */}
-        <div>
-          <h4 className="text-white font-semibold mb-4">Contact</h4>
-          <p className="text-gray-400 text-sm">Email: contact@smartmanufacturing.com</p>
-          <p className="text-gray-400 text-sm">Phone: +1 234 567 890</p>
-          <p className="text-gray-400 text-sm mt-2">123 Industrial Ave, Tech City</p>
         </div>
       </div>
 
