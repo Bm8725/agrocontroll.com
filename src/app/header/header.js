@@ -103,10 +103,10 @@ export default function Navbar() {
               ))}
 
               <a
-                href="mailto:contact@agrocontroll.com"
+                href="/contact/"
                 className="mt-6 w-full px-6 py-3 rounded-full bg-blue-600 text-white font-semibold uppercase tracking-wide text-center hover:bg-blue-500 transition duration-300"
               >
-                connect
+                contact
               </a>
             </nav>
           </motion.div>
@@ -172,10 +172,10 @@ function DesktopMenu({ menuItems, social }) {
       ))}
 
       <a
-        href="mailto:contact@agrocontroll.com"
+        href="/contact/"
         className="ml-4 px-6 py-2 rounded-full bg-blue-600 text-white text-sm font-semibold uppercase tracking-wide hover:bg-blue-500 transition duration-300"
       >
-        connect
+        contact
       </a>
     </nav>
   );
