@@ -18,8 +18,8 @@ export default function Navbar() {
       title: "Products",
       href: "#products",
       submenu: [
-        { title: "w200 ECO WASH CONTROLLER", href: "/404/" },
-        { title: "iT200 ECO SMART TANK CONTROLLER", href: "/404/" },
+        { title: "w200 ECO WASH CONTROLLER", href: "/w200-controller/" },
+        { title: "iT200 ECO SMART TANK CONTROLLER", href: "/it200-controller/" },
         { title: "iFARM MANAGEMENT ", href: "/404/" },
       ],
     },
