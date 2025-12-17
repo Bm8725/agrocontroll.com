@@ -15,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "agro-controll.com. Smart solutions into smart world.",
-  description: "Industrial automation, embedded systems, and analytics for smart livestock and commercial farms.",
+  description:
+    "Industrial automation, embedded systems, and analytics for smart livestock and commercial farms.",
 };
 
 export default function RootLayout({ children }) {
@@ -39,8 +40,16 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body>
-        {children}
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-[#0f111a] text-white`}
+      >
+        {/* Navbar */}
+        <Navbar />
+
+        {/* Main content */}
+        <main className="flex-1">{children}</main>
+
+        {/* Footer */}
         <Footer />
       </body>
     </html>
