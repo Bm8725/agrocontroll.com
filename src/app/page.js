@@ -108,13 +108,13 @@ export default function Home() {
             className="mt-10 flex flex-wrap justify-center gap-4"
           >
             <a
-              href="#products"
+              href="/solutions/"
               className="px-8 py-3 rounded-full bg-pink-600 text-white font-semibold uppercase tracking-wide hover:bg-pink-800 transition shadow-md hover:shadow-lg"
             >
               Solutions
             </a>
             <a
-              href="#contact"
+              href="/contact/"
               className="px-8 py-3 rounded-full border border-gray-300 text-gray-100 font-semibold uppercase tracking-wide hover:bg-gray-100 hover:text-gray-900 transition"
             >
               Contact
