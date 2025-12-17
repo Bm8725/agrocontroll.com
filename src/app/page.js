@@ -123,6 +123,7 @@ export default function Home() {
         </motion.div>
       </section>
 
+
      {/* PRODUCTS */}
 <section id="products" className="py-24 px-6 bg-gray-50 text-gray-900">
   <motion.h2
