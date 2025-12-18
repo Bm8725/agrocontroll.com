@@ -46,7 +46,7 @@ export default function Home() {
 {/* HERO with responsive background image */}
 <section className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-purple-900 via-indigo-900 to-emerald-800">
 <div className="absolute inset-0 z-0">
-<img src="/agro-controll.jpg" alt="Hero Background" className="w-full h-full object-cover opacity-30" />
+<img src="/agro-controll1.jpg" alt="Hero Background" className="w-full h-full object-cover opacity-30" />
 </div>
 <div className="absolute inset-0 bg-black/30 z-10" />
 <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="relative z-20 max-w-4xl mx-auto text-center">
@@ -55,7 +55,7 @@ export default function Home() {
 </div>
 <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="text-4xl md:text-5xl font-bold text-white tracking-tight">
 Industrial Automation
-<span className="block text-emerald-300 mt-2 text-2xl md:text-3xl font-medium">Two Core Modules & Expert Services</span>
+<span className="block text-emerald-300 mt-2 text-2xl md:text-3xl font-medium">Smart livestock farms solutions.</span>
 </motion.h1>
 <motion.p initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }} className="mt-6 text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
 Embedded systems, industrial software, and professional outsourcing for smart livestock farms.
@@ -98,7 +98,11 @@ Embedded systems, industrial software, and professional outsourcing for smart li
             <span key={i} className="px-6 py-3 bg-purple-800/60 rounded-xl border border-purple-500/30">{tech}</span>
           ))}
         </div>
+        <div className="mt-8">
+          <a href="/outsourcing-datails/" className="inline-block px-8 py-3 bg-pink-600 text-white font-semibold rounded-full shadow-md hover:bg-pink-800 transition">More Details</a>
+        </div>
       </section>
+
 
       {/* LIVE CHART / TANK COOLING VIEW */}
       <section className="py-32 px-6 space-y-14 max-w-6xl mx-auto">
