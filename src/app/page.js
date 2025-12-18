@@ -24,7 +24,7 @@ export default function Home() {
     {
       title: 'iT200 Controller',
       desc: 'The iT200 is a universal milk cooling tank system designed for adaptability across different milking parlors. Built for durability and hygiene, it can optionally integrate IoT monitoring and analytics, enabling farm managers to optimize cooling efficiency and track performance in real time.',
-      img: 'https://source.unsplash.com/600x400/?technology,automation',
+      img: '/cooling-agro.jpg',
       link: '/it200-controller/',
       price: '$1499,9'
     }
@@ -38,31 +38,34 @@ export default function Home() {
     'Consulting & Support'
   ];
 
-  const technologies = ['React / Next.js', 'TailwindCSS', 'C / Embedded C', 'GCC ARM Toolchain', 'Modbus / CANbus / RS485', 'MQTT / WebSockets', 'Docker / CI-CD'];
+  const technologies = ['React / Next.js', 'TailwindCSS', 'C / Embedded C', 'GCC ARM Toolchain', 'Modbus / CANbus / RS485', 'Docker / CI-CD'];
 
   return (
     <main className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-indigo-900 to-purple-900 text-white overflow-hidden">
 
-      {/* HERO */}
-      <section className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-purple-900 via-indigo-900 to-emerald-800">
-        <div className="absolute inset-0 bg-black/30 z-10" />
-        <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="relative z-20 max-w-4xl mx-auto text-center">
-          <div className="mx-auto mb-6 w-20 h-20 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-xl">
-            <span className="text-white font-bold text-2xl">AG</span>
-          </div>
-          <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="text-4xl md:text-5xl font-bold text-white tracking-tight">
-            Industrial Automation
-            <span className="block text-emerald-300 mt-2 text-2xl md:text-3xl font-medium">Two Core Modules & Expert Services</span>
-          </motion.h1>
-          <motion.p initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }} className="mt-6 text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
-            Embedded systems, industrial software, and professional outsourcing for smart livestock farms.
-          </motion.p>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6, duration: 0.8 }} className="mt-10 flex flex-wrap justify-center gap-4">
-            <a href="#modules" className="px-8 py-3 rounded-full bg-pink-600 text-white font-semibold uppercase tracking-wide hover:bg-pink-800 transition shadow-md hover:shadow-lg">Explore Modules</a>
-            <a href="#contact" className="px-8 py-3 rounded-full border border-gray-300 text-gray-100 font-semibold uppercase tracking-wide hover:bg-gray-100 hover:text-gray-900 transition">Contact</a>
-          </motion.div>
-        </motion.div>
-      </section>
+{/* HERO with responsive background image */}
+<section className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-purple-900 via-indigo-900 to-emerald-800">
+<div className="absolute inset-0 z-0">
+<img src="/agro-controll.jpg" alt="Hero Background" className="w-full h-full object-cover opacity-30" />
+</div>
+<div className="absolute inset-0 bg-black/30 z-10" />
+<motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="relative z-20 max-w-4xl mx-auto text-center">
+<div className="mx-auto mb-6 w-20 h-20 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-xl">
+<span className="text-white font-bold text-2xl">AG</span>
+</div>
+<motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="text-4xl md:text-5xl font-bold text-white tracking-tight">
+Industrial Automation
+<span className="block text-emerald-300 mt-2 text-2xl md:text-3xl font-medium">Two Core Modules & Expert Services</span>
+</motion.h1>
+<motion.p initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }} className="mt-6 text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
+Embedded systems, industrial software, and professional outsourcing for smart livestock farms.
+</motion.p>
+<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6, duration: 0.8 }} className="mt-10 flex flex-wrap justify-center gap-4">
+<a href="#modules" className="px-8 py-3 rounded-full bg-pink-600 text-white font-semibold uppercase tracking-wide hover:bg-pink-800 transition shadow-md hover:shadow-lg">Explore Modules</a>
+<a href="#contact" className="px-8 py-3 rounded-full border border-gray-300 text-gray-100 font-semibold uppercase tracking-wide hover:bg-gray-100 hover:text-gray-900 transition">Contact</a>
+</motion.div>
+</motion.div>
+</section>
 
       {/* MODULES with side layout + Explore More + Price */}
       <section id="modules" className="py-32 px-6 space-y-32 max-w-6xl mx-auto">
