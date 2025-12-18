@@ -7,12 +7,12 @@ export default function IT200DashboardPlans() {
   const plans = [
     {
       name: "IT200 + 180€",
-      price: "180€",
+      price: "$180",
       features: ["Basic IoT Monitoring", "Embedded System Support", "Email Support"],
     },
     {
       name: "IT200 + 299€",
-      price: "299€",
+      price: "$299",
       features: ["Advanced IoT & Analytics", "Full Embedded & Firmware Support", "Priority Support"],
       highlight: true,
     },
