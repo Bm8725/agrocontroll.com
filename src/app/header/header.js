@@ -23,9 +23,9 @@ export default function Navbar() {
         { title: "iFARM MANAGEMENT ", href: "/404/" },
       ],
     },
-    { title: "Solutions", href: "/404/" },
+    { title: "Solutions", href: "/" },
     { title: "Industries", href: "/industries/" },
-    { title: "About", href: "/" },
+    { title: "About", href: "/about/" },
   ];
 
   const social = [

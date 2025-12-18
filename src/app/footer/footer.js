@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
 
@@ -25,12 +27,12 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
+    <footer className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-950 text-gray-300 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
         {/* Brand */}
-        <div className="flex flex-col gap-5 animate-fade-in">
+        <div className="flex flex-col gap-5">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center shadow-md">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center shadow-lg">
               <span className="text-white font-bold text-lg">AG</span>
             </div>
             <span className="font-semibold uppercase tracking-wide text-white text-xl">
@@ -40,7 +42,7 @@ export default function Footer() {
           <p className="text-gray-400 text-sm leading-6 max-w-sm">
             Delivering advanced industrial automation, embedded systems, and powerful analytics empowering smart manufacturing.
           </p>
-          <div className="flex gap-4 text-2xl">
+          <div className="flex gap-4 text-2xl mt-2">
             {social.map((item, index) => (
               <a
                 key={index}
@@ -63,7 +65,7 @@ export default function Footer() {
               <li key={link.title}>
                 <Link
                   href={link.href}
-                  className="hover:text-emerald-500 transition"
+                  className="hover:text-emerald-400 transition duration-300"
                 >
                   {link.title}
                 </Link>
@@ -80,7 +82,7 @@ export default function Footer() {
               <li key={service.title}>
                 <Link
                   href={service.href}
-                  className="hover:text-emerald-500 transition"
+                  className="hover:text-emerald-400 transition duration-300"
                 >
                   {service.title}
                 </Link>
@@ -92,14 +94,15 @@ export default function Footer() {
         {/* Contact */}
         <div>
           <h4 className="text-white font-semibold mb-4 text-lg">Contact</h4>
-          <p className="text-gray-400 text-sm">Address: 123 Industrial Park, Smart City</p>
+          <p className="text-gray-400 text-sm">123 Industrial Park, Smart City</p>
           <p className="text-gray-400 text-sm">Email: info@agrocontrol.com</p>
           <p className="text-gray-400 text-sm">Phone: +01 234 567 890</p>
         </div>
       </div>
 
+      {/* Footer Bottom */}
       <div className="mt-12 border-t border-gray-800 pt-6 text-center text-gray-500 text-xs">
-        &copy; {new Date().getFullYear()} Agro-Control. All rights reserved.
+        &copy; {new Date().getFullYear()} AgroControl Industries. All rights reserved.
       </div>
     </footer>
   );
