@@ -25,29 +25,29 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-900 text-gray-300 pt-12 pb-6">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
         {/* Brand */}
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center shadow-lg">
+        <div className="flex flex-col gap-5 animate-fade-in">
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center shadow-md">
               <span className="text-white font-bold text-lg">AG</span>
             </div>
-            <span className="font-semibold uppercase tracking-wide text-white text-lg">
-              Industrial agro-controll
+            <span className="font-semibold uppercase tracking-wide text-white text-xl">
+              AgroControl Industries
             </span>
           </div>
-          <p className="text-gray-400 text-sm">
-            Delivering professional industrial automation solutions, embedded systems, and software analytics for modern smart farms.
+          <p className="text-gray-400 text-sm leading-6 max-w-sm">
+            Delivering advanced industrial automation, embedded systems, and powerful analytics empowering smart manufacturing.
           </p>
-          <div className="flex gap-4 mt-2">
-            {social.map((item, idx) => (
+          <div className="flex gap-4 text-2xl">
+            {social.map((item, index) => (
               <a
-                key={idx}
+                key={index}
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white text-xl transition duration-300"
+                className="text-gray-400 hover:text-white transition duration-300 hover:scale-110"
               >
                 {item.icon}
               </a>
@@ -57,13 +57,13 @@ export default function Footer() {
 
         {/* Navigation */}
         <div>
-          <h4 className="text-white font-semibold mb-4">Navigation</h4>
-          <ul className="flex flex-col gap-2 text-gray-400 text-sm">
+          <h4 className="text-white font-semibold mb-4 text-lg">Navigation</h4>
+          <ul className="flex flex-col gap-3 text-gray-400 text-sm">
             {links.map((link) => (
               <li key={link.title}>
                 <Link
                   href={link.href}
-                  className="hover:text-emerald-500 transition duration-300"
+                  className="hover:text-emerald-500 transition"
                 >
                   {link.title}
                 </Link>
@@ -74,13 +74,13 @@ export default function Footer() {
 
         {/* Services */}
         <div>
-          <h4 className="text-white font-semibold mb-4">Services</h4>
-          <ul className="flex flex-col gap-2 text-gray-400 text-sm">
+          <h4 className="text-white font-semibold mb-4 text-lg">Services</h4>
+          <ul className="flex flex-col gap-3 text-gray-400 text-sm">
             {services.map((service) => (
               <li key={service.title}>
                 <Link
                   href={service.href}
-                  className="hover:text-emerald-500 transition duration-300"
+                  className="hover:text-emerald-500 transition"
                 >
                   {service.title}
                 </Link>
@@ -88,10 +88,18 @@ export default function Footer() {
             ))}
           </ul>
         </div>
+
+        {/* Contact */}
+        <div>
+          <h4 className="text-white font-semibold mb-4 text-lg">Contact</h4>
+          <p className="text-gray-400 text-sm">Address: 123 Industrial Park, Smart City</p>
+          <p className="text-gray-400 text-sm">Email: info@agrocontrol.com</p>
+          <p className="text-gray-400 text-sm">Phone: +01 234 567 890</p>
+        </div>
       </div>
 
-      <div className="mt-12 border-t border-gray-700 pt-4 text-center text-gray-500 text-sm">
-        &copy; {new Date().getFullYear()} Smart Manufacturing. All rights reserved.
+      <div className="mt-12 border-t border-gray-800 pt-6 text-center text-gray-500 text-xs">
+        &copy; {new Date().getFullYear()} Agro-Control. All rights reserved.
       </div>
     </footer>
   );
