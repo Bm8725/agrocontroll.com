@@ -118,6 +118,7 @@ Embedded systems, industrial software, and professional outsourcing for smart li
         </div>
       </section>
 
+
       {/* CONTACT */}
       <section id="contact" className="py-24 px-6 bg-gray-900 text-center text-gray-100">
         <motion.h2 initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ duration: 0.8 }} className="text-3xl md:text-4xl font-semibold mb-6">
