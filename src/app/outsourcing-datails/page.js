@@ -187,7 +187,7 @@ const codeLines = [
           href="mailto:Lexsnowsrl@gmail.com"
           className="inline-block px-8 py-4 bg-pink-600 hover:bg-pink-400 text-white font-semibold rounded-full shadow-md transition"
         >
-          Contact Us
+          Emailing Us Now
         </motion.a>
       </section>
     </main>

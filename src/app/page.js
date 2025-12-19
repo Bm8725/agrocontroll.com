@@ -253,7 +253,7 @@ export default function Home() {
           Contact us for embedded development, system integration, custom software, or industrial automation solutions.
         </motion.p>
         <motion.a whileHover={{ scale: 1.05, boxShadow: '0px 8px 20px rgba(0,0,0,0.2)' }} href="mailto:Lexsnowsrl@gmail.com" className="px-8 py-4 rounded-full bg-emerald-600 text-white font-semibold uppercase tracking-wide hover:bg-emerald-500 transition shadow-md">
-          Contact Us
+          Email Us Now
         </motion.a>
       </section>
     </main>
