@@ -88,8 +88,8 @@ export default function Home() {
         <div className="grid md:grid-cols-2 gap-10">
           {[
             {
-              name: "IoT extension Basic/month",
-              price: "$28",
+              name: "IoT SIM extension Basic/month",
+              price: "$28.9",
               features: [
                 "Real-time tank monitoring",
                 "Basic IoT analytics",
@@ -97,8 +97,8 @@ export default function Home() {
               ],
             },
             {
-              name: "IoT extension Advanced/month",
-              price: "$38",
+              name: "IoT SIM extension Advanced/month",
+              price: "$98.9",
               features: [
                 "Real-time tank monitoring",
                 "Advanced IoT analytics",
