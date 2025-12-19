@@ -31,7 +31,7 @@ const handleSubmit = async (e) => {
 
   try {
     const res = await fetch(
-      "https://api.doxer.ro/api_agrocontroll/request_contact.php",
+      "https://api.doxer.ro/apiagro/contact.php",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -53,6 +53,7 @@ const handleSubmit = async (e) => {
 
   setSubmitting(false);
 };
+
 
 
   return (
