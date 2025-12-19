@@ -22,28 +22,33 @@ export default function BusinessContactForm() {
   const next = () => setStep((prev) => prev + 1);
   const prev = () => setStep((prev) => prev - 1);
 
+const [submitting, setSubmitting] = useState(false);
+
 const handleSubmit = async (e) => {
   e.preventDefault();
   setSubmitting(true);
-  setStatus(null);
+  setStatus({ type: "loading", msg: "Sending request..." });
 
   try {
-    const res = await fetch("https://api.doxer.ro/api_agrocontroll/request-contact.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    const res = await fetch(
+      "https://api.doxer.ro/api_agrocontroll/request-contact.php",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      }
+    );
 
     const data = await res.json();
 
     if (res.ok && data.success) {
-      setStatus({ success: true, message: "Message sent successfully!" });
-      setForm({ name: "", email: "", message: "" });
+      setStatus({ type: "success", msg: "Message sent successfully!" });
+      setForm({ name: "", email: "", company: "", service: "", budget: "", message: "" });
     } else {
-      setStatus({ success: false, message: data.message || "Server error. Try again." });
+      setStatus({ type: "error", msg: data.message || "Server error. Try again." });
     }
   } catch (error) {
-    setStatus({ success: false, message: "Server unreachable. Try again later." });
+    setStatus({ type: "error", msg: "Server unreachable. Try again later." });
   }
 
   setSubmitting(false);
