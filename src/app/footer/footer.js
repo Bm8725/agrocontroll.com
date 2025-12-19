@@ -7,9 +7,8 @@ export default function Footer() {
   const links = [
     { title: "Home", href: "/" },
     { title: "Products", href: "/" },
-    { title: "Features", href: "#features" },
+    { title: "Features", href: "/outsourcing-datails/" },
     { title: "Industries", href: "/industries" },
-    { title: "About", href: "/about" },
     { title: "Contact", href: "/contact" },
   ];
 
@@ -18,10 +17,10 @@ export default function Footer() {
   ];
 
   const services = [
-    { title: "Embedded Systems", href: "#products" },
-    { title: "Industrial Firmware", href: "#products" },
-    { title: "Analytics & Software", href: "#products" },
-    { title: "Consulting", href: "#products" },
+    { title: "Terms and conditions", href: "/404/" },
+    { title: "Policy of company", href: "/404/" },
+    { title: "about", href: "/about/" },
+    { title: "Consulting", href: "/outsourcing-datails/" },
   ];
 
   return (
@@ -74,7 +73,7 @@ export default function Footer() {
 
         {/* Services */}
         <div>
-          <h4 className="text-white font-semibold mb-4 text-lg">Services</h4>
+          <h4 className="text-white font-semibold mb-4 text-lg">Company</h4>
           <ul className="flex flex-col gap-3 text-gray-400 text-sm">
             {services.map((service) => (
               <li key={service.title}>
