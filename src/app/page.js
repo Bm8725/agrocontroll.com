@@ -56,7 +56,7 @@ export default function Home() {
             <span className="block text-emerald-300 mt-2 text-2xl md:text-3xl font-medium">Smart livestock farms solutions.</span>
           </motion.h1>
           <motion.p initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }} className="mt-6 text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
-            Embedded systems, industrial software, and professional outsourcing for smart livestock farms.
+            Automation solutions for farms, management and embedded systems enhancing productivity, efficiency, and sustainability in modern agriculture.
           </motion.p>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6, duration: 0.8 }} className="mt-10 flex flex-wrap justify-center gap-4">
             <a href="#modules" className="px-8 py-3 rounded-full bg-pink-600 text-white font-semibold uppercase tracking-wide hover:bg-pink-800 transition shadow-md hover:shadow-lg">Explore Modules</a>
