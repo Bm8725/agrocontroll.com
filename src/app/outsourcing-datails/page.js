@@ -16,12 +16,9 @@ export default function DevOutsourcingDark() {
   ];
 
   const technologies = [
-    "C / C++ / Embedded C",
+    "C / C++ ",
     "Next.js / React",
     "Python / Django",
-    "Docker / Kubernetes",
-    "MQTT / Modbus / CANbus",
-    "Git / CI-CD",
     "IoT Dashboards",
     "Realtime Sensor Networks",
   ];

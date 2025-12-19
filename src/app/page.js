@@ -59,7 +59,7 @@ export default function Home() {
             Automation solutions for farms, management and embedded systems enhancing productivity, efficiency, and sustainability in modern agriculture.
           </motion.p>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6, duration: 0.8 }} className="mt-10 flex flex-wrap justify-center gap-4">
-            <a href="/outsourcing-details/" className="px-8 py-3 rounded-full bg-pink-600 text-white font-semibold uppercase tracking-wide hover:bg-pink-800 transition shadow-md hover:shadow-lg">Explore services</a>
+            <a href="/outsourcing-datails/" className="px-8 py-3 rounded-full bg-pink-600 text-white font-semibold uppercase tracking-wide hover:bg-pink-800 transition shadow-md hover:shadow-lg">Explore services</a>
             <a href="/contact/" className="px-8 py-3 rounded-full border border-gray-300 text-gray-100 font-semibold uppercase tracking-wide hover:bg-gray-100 hover:text-gray-900 transition">Contact us</a>
           </motion.div>
         </motion.div>
