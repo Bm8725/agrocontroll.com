@@ -5,18 +5,16 @@ import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
 
 export default function Footer() {
   const links = [
-    { title: "Home", href: "#hero" },
-    { title: "Products", href: "#products" },
+    { title: "Home", href: "/" },
+    { title: "Products", href: "/" },
     { title: "Features", href: "#features" },
-    { title: "Industries", href: "#industries" },
-    { title: "About", href: "#about" },
-    { title: "Contact", href: "#contact" },
+    { title: "Industries", href: "/industries" },
+    { title: "About", href: "/about" },
+    { title: "Contact", href: "/contact" },
   ];
 
   const social = [
-    { icon: <FaLinkedin />, href: "https://linkedin.com" },
-    { icon: <FaTwitter />, href: "https://twitter.com" },
-    { icon: <FaGithub />, href: "https://github.com" },
+
   ];
 
   const services = [
@@ -94,9 +92,9 @@ export default function Footer() {
         {/* Contact */}
         <div>
           <h4 className="text-white font-semibold mb-4 text-lg">Contact</h4>
-          <p className="text-gray-400 text-sm">123 Industrial Park, Smart City</p>
-          <p className="text-gray-400 text-sm">Email: info@agrocontrol.com</p>
-          <p className="text-gray-400 text-sm">Phone: +01 234 567 890</p>
+          <p className="text-gray-400 text-sm">123 Industrial Park, Romania</p>
+          
+          <p className="text-gray-400 text-sm">Phone: +49 234 567 890</p>
         </div>
       </div>
 

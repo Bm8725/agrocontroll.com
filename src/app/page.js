@@ -7,7 +7,7 @@ export default function Home() {
   const modules = [
     {
       title: "W200 Controller",
-      desc: "The W200 is a universal machine designed for cleaning and automating milking parlor equipment. Engineered for durability and reliability, it ensures optimal performance, reduces manual labor, and maintains hygiene standards across all dairy operations. It is versatile, easy to integrate, and built to handle the demanding conditions of modern dairy farms.",
+      desc: "The W200 is a universal machine (controller)  designed for cleaning and automating milking parlor equipment. Engineered for durability and reliability, it ensures optimal performance, reduces manual labor, and maintains hygiene standards across all dairy operations. It is versatile, easy to integrate, and built to handle the demanding conditions of modern dairy farms.",
       img: "/w200.jpeg",
       link: "/w200-controller/",
       price: "$999,9",
@@ -89,7 +89,7 @@ export default function Home() {
           {[
             {
               name: "IT200 Basic/month",
-              price: "$180",
+              price: "$28",
               features: [
                 "Real-time tank monitoring",
                 "Basic IoT analytics",
@@ -98,7 +98,7 @@ export default function Home() {
             },
             {
               name: "IT200 Advanced/month",
-              price: "$299",
+              price: "$38",
               features: [
                 "Advanced IoT analytics",
                 "Remote management dashboard",
@@ -154,6 +154,95 @@ export default function Home() {
           <a href="/outsourcing-datails/" className="inline-block px-8 py-3 bg-pink-600 text-white font-semibold rounded-full shadow-md hover:bg-pink-800 transition">More Details</a>
         </div>
       </section>
+<section className="py-20 px-4 sm:px-8 bg-white text-slate-900 border-t border-blue-200">
+
+  <motion.h2
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.6 }}
+    className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center text-blue-700 tracking-tight mb-12 sm:mb-16"
+  >
+    Smart Milk Cooling Automation
+  </motion.h2>
+
+  <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+    {/* IMAGE */}
+    <motion.div
+      initial={{ opacity: 0, x: -50 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7 }}
+      className="relative flex justify-center"
+    >
+      <div className="absolute inset-0 rounded-xl border-2 sm:border-4 border-blue-200 pointer-events-none"></div>
+
+      <img
+        src="/tank.jpg"
+        className="rounded-xl shadow-lg border border-blue-100 w-full max-w-[480px] sm:max-w-full object-cover"
+        alt="Cooling Unit"
+      />
+
+      <span className="absolute bottom-3 right-3 bg-white/90 border border-blue-300 px-2 sm:px-3 py-1 text-[9px] sm:text-xs text-blue-700 rounded">
+        Cooling Tank
+      </span>
+    </motion.div>
+
+    {/* TEXT + PARAMETERS */}
+    <motion.div
+      initial={{ opacity: 0, x: 50 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7 }}
+      className="space-y-6 sm:space-y-8 text-center lg:text-left"
+    >
+      <p className="text-gray-700 text-base sm:text-lg leading-relaxed sm:leading-8 max-w-xl mx-auto lg:mx-0">
+        The IT200 milk cooling system optimizes temperature regulation, agitator
+        timing, and energy usage — ensuring hygiene and milk preservation
+        through industrial-grade automation. iT200 board electronic controller is compatible with variety of systems like DeLaval, GEA, and more systems. Just remove old controller and adapt our systems.
+      </p>
+
+      <div className="grid grid-cols-3 gap-3 sm:gap-6">
+
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          className="bg-white p-4 sm:p-6 rounded-lg border border-blue-300 text-center shadow-sm"
+        >
+          <h3 className="text-blue-700 text-xl sm:text-2xl font-bold">4°C</h3>
+          <p className="text-gray-500 text-[10px] sm:text-xs mt-1">TARGET</p>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          className="bg-white p-4 sm:p-6 rounded-lg border border-blue-300 text-center shadow-sm"
+        >
+          <h3 className="text-green-600 text-xl sm:text-2xl font-bold">ON</h3>
+          <p className="text-gray-500 text-[10px] sm:text-xs mt-1">AGITATOR</p>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          className="bg-white p-4 sm:p-6 rounded-lg border border-blue-300 text-center shadow-sm"
+        >
+          <h3 className="text-blue-700 text-xl sm:text-2xl font-bold">98%</h3>
+          <p className="text-gray-500 text-[10px] sm:text-xs mt-1">EFFICIENCY</p>
+        </motion.div>
+      </div>
+
+      <motion.a
+        href="/it200-controller/"
+        whileHover={{ scale: 1.04 }}
+        className="inline-block px-6 sm:px-10 py-3 sm:py-4 bg-blue-600 text-white rounded-full shadow hover:bg-blue-700 transition font-semibold text-sm sm:text-base"
+      >
+        Explore IT200 Control
+      </motion.a>
+    </motion.div>
+
+  </div>
+</section>
+
+
 
       {/* CONTACT */}
       <section id="contact" className="py-24 px-6 bg-gray-900 text-center text-gray-100">
