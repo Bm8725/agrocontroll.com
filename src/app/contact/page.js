@@ -15,6 +15,7 @@ export default function BusinessContactForm() {
   });
 
   const [status, setStatus] = useState({ type: "", msg: "" });
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,62 +23,60 @@ export default function BusinessContactForm() {
   const next = () => setStep((prev) => prev + 1);
   const prev = () => setStep((prev) => prev - 1);
 
-const [submitting, setSubmitting] = useState(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setStatus({ type: "loading", msg: "Sending request..." });
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setSubmitting(true);
-  setStatus({ type: "loading", msg: "Sending request..." });
+    try {
+      const res = await fetch(
+        "https://api.doxer.ro/api/contactagr.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
 
-  try {
-    const res = await fetch(
-      "https://api.doxer.ro/api/contactagr.php",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setStatus({ type: "success", msg: "Message sent successfully!" });
+        setForm({ name: "", email: "", company: "", service: "", budget: "", message: "" });
+      } else {
+        setStatus({ type: "error", msg: data.message || "Server error. Try again." });
       }
-    );
-
-    const data = await res.json();
-
-    if (res.ok && data.success) {
-      setStatus({ type: "success", msg: "Message sent successfully!" });
-      setForm({ name: "", email: "", company: "", service: "", budget: "", message: "" });
-    } else {
-      setStatus({ type: "error", msg: data.message || "Server error. Try again." });
+    } catch (error) {
+      setStatus({ type: "error", msg: "Server unreachable. Try again later." });
     }
-  } catch (error) {
-    setStatus({ type: "error", msg: "Server unreachable. Try again later." });
-  }
 
-  setSubmitting(false);
-};
+    setSubmitting(false);
+  };
 
-
+  // --- Variants for smooth step animations ---
+  const variants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: { opacity: 1, x: 0 },
+  };
 
   return (
-    <section className="min-h-screen bg-white text-slate-900 flex items-center justify-center px-6 py-24">
-
-      <div className="w-full max-w-xl bg-white border border-blue-200 rounded-3xl shadow-2xl p-10 space-y-10">
-
-        <h2 className="text-3xl font-extrabold text-blue-700 text-center">
+    <section className="min-h-screen bg-white text-slate-900 flex items-center justify-center px-4 sm:px-6 lg:px-24 py-12 sm:py-24">
+      <div className="w-full max-w-xl bg-white border border-blue-200 rounded-3xl shadow-2xl p-6 sm:p-10 space-y-10">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-700 text-center">
           Business Inquiry Form
         </h2>
 
         {/* STATUS MESSAGES */}
         {status.type === "loading" && (
           <p className="text-center text-blue-600 font-semibold">
-            Sending request...
+            {status.msg}
           </p>
         )}
-
         {status.type === "success" && (
           <p className="text-center text-green-600 font-semibold bg-green-100 p-2 rounded-xl border border-green-300">
             {status.msg}
           </p>
         )}
-
         {status.type === "error" && (
           <p className="text-center text-red-600 font-semibold bg-red-100 p-2 rounded-xl border border-red-300">
             {status.msg}
@@ -85,7 +84,7 @@ const handleSubmit = async (e) => {
         )}
 
         {/* Progress UI */}
-        <div className="flex justify-between items-center text-sm font-semibold text-blue-700">
+        <div className="flex justify-between items-center text-xs sm:text-sm font-semibold text-blue-700">
           <span className={step >= 1 ? "text-blue-700" : "text-gray-400"}>Info</span>
           <span className={step >= 2 ? "text-blue-700" : "text-gray-400"}>Service</span>
           <span className={step >= 3 ? "text-blue-700" : "text-gray-400"}>Details</span>
@@ -99,18 +98,25 @@ const handleSubmit = async (e) => {
         </div>
 
         {/* FORM */}
-        <form onSubmit={handleSubmit} className="space-y-8">
-
+        <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
           {/* Step 1 */}
           {step === 1 && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <motion.div
+              key="step1"
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={variants}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col gap-4 sm:gap-6"
+            >
               <input
                 name="name"
                 required
                 placeholder="Your Name"
                 value={form.name}
                 onChange={handleChange}
-                className="w-full p-4 border border-blue-300 rounded-xl bg-white focus:ring-2 focus:ring-blue-600 outline-none"
+                className="w-full p-3 sm:p-4 border border-blue-300 rounded-xl bg-white focus:ring-2 focus:ring-blue-600 outline-none"
               />
               <input
                 name="email"
@@ -119,19 +125,20 @@ const handleSubmit = async (e) => {
                 placeholder="Your Email"
                 value={form.email}
                 onChange={handleChange}
-                className="w-full mt-4 p-4 border border-blue-300 rounded-xl bg-white focus:ring-2 focus:ring-blue-600 outline-none"
+                className="w-full p-3 sm:p-4 border border-blue-300 rounded-xl bg-white focus:ring-2 focus:ring-blue-600 outline-none"
               />
               <input
                 name="company"
                 placeholder="Company (optional)"
                 value={form.company}
                 onChange={handleChange}
-                className="w-full mt-4 p-4 border border-blue-300 rounded-xl bg-white focus:ring-2 focus:ring-blue-600 outline-none"
+                className="w-full p-3 sm:p-4 border border-blue-300 rounded-xl bg-white focus:ring-2 focus:ring-blue-600 outline-none"
               />
               <button
                 type="button"
                 onClick={next}
-                className="w-full mt-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition"
+                disabled={submitting}
+                className="w-full py-3 sm:py-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition disabled:opacity-50"
               >
                 Next →
               </button>
@@ -140,13 +147,21 @@ const handleSubmit = async (e) => {
 
           {/* Step 2 */}
           {step === 2 && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <motion.div
+              key="step2"
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={variants}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col gap-4 sm:gap-6"
+            >
               <select
                 name="service"
                 required
                 value={form.service}
                 onChange={handleChange}
-                className="w-full p-4 border border-blue-300 rounded-xl focus:ring-2 focus:ring-blue-600"
+                className="w-full p-3 sm:p-4 border border-blue-300 rounded-xl focus:ring-2 focus:ring-blue-600"
               >
                 <option value="">Select service type…</option>
                 <option value="purchase">Purchase Modules (IT200/W200)</option>
@@ -161,7 +176,7 @@ const handleSubmit = async (e) => {
                 name="budget"
                 value={form.budget}
                 onChange={handleChange}
-                className="w-full p-4 border border-blue-300 rounded-xl mt-4 focus:ring-2 focus:ring-blue-600"
+                className="w-full p-3 sm:p-4 border border-blue-300 rounded-xl focus:ring-2 focus:ring-blue-600"
               >
                 <option value="">Budget (optional)</option>
                 <option value="5k">Under $5,000</option>
@@ -170,18 +185,18 @@ const handleSubmit = async (e) => {
                 <option value="50k+">$50,000+</option>
               </select>
 
-              <div className="flex justify-between mt-6">
+              <div className="flex flex-col sm:flex-row justify-between mt-4 sm:mt-6 gap-4 sm:gap-0">
                 <button
                   onClick={prev}
                   type="button"
-                  className="px-6 py-3 border border-blue-400 rounded-xl text-blue-700 font-semibold hover:bg-blue-50"
+                  className="flex-1 px-6 py-3 border border-blue-400 rounded-xl text-blue-700 font-semibold hover:bg-blue-50"
                 >
                   ← Back
                 </button>
                 <button
                   onClick={next}
                   type="button"
-                  className="px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700"
+                  className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700"
                 >
                   Next →
                 </button>
@@ -191,7 +206,15 @@ const handleSubmit = async (e) => {
 
           {/* Step 3 */}
           {step === 3 && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <motion.div
+              key="step3"
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={variants}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col gap-4 sm:gap-6"
+            >
               <textarea
                 name="message"
                 rows={6}
@@ -199,29 +222,27 @@ const handleSubmit = async (e) => {
                 placeholder="Project description / requirements / questions…"
                 value={form.message}
                 onChange={handleChange}
-                className="w-full p-4 border border-blue-300 rounded-xl bg-white focus:ring-2 focus:ring-blue-600 outline-none resize-none"
+                className="w-full p-3 sm:p-4 border border-blue-300 rounded-xl bg-white focus:ring-2 focus:ring-blue-600 outline-none resize-none"
               />
 
-              <div className="flex justify-between mt-6">
+              <div className="flex flex-col sm:flex-row justify-between mt-4 sm:mt-6 gap-4 sm:gap-0">
                 <button
                   onClick={prev}
                   type="button"
-                  className="px-6 py-3 border border-blue-400 rounded-xl text-blue-700 font-semibold hover:bg-blue-50"
+                  className="flex-1 px-6 py-3 border border-blue-400 rounded-xl text-blue-700 font-semibold hover:bg-blue-50"
                 >
                   ← Back
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700"
+                  className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700"
                 >
                   Submit Inquiry
                 </button>
               </div>
             </motion.div>
           )}
-
         </form>
-
       </div>
     </section>
   );
