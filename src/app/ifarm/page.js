@@ -1,129 +1,111 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
 import { motion } from "framer-motion";
 
-export default function IT200DashboardPlans() {
-  const plans = [
-    {
-      name: "IT200 + 180€",
-      price: "$180",
-      features: ["Basic IoT Monitoring", "Embedded System Support", "Email Support"],
-    },
-    {
-      name: "IT200 + 299€",
-      price: "$299",
-      features: ["Advanced IoT & Analytics", "Full Embedded & Firmware Support", "Priority Support"],
-      highlight: true,
-    },
+export default function IoTDashboardPresentation() {
+  // Dummy data
+  const [tempData, setTempData] = useState([
+    { time: "08:00", temp: 22 },
+    { time: "10:00", temp: 24 },
+    { time: "12:00", temp: 26 },
+    { time: "14:00", temp: 25 },
+    { time: "16:00", temp: 24 },
+    { time: "18:00", temp: 23 },
+  ]);
+
+  const [tankLevelData, setTankLevelData] = useState([
+    { tank: "A", level: 78 },
+    { tank: "B", level: 65 },
+    { tank: "C", level: 50 },
+    { tank: "D", level: 90 },
+  ]);
+
+  const stats = [
+    { title: "Temperature", value: "24°C", change: "+2°C", color: "cyan" },
+    { title: "Tank Level Avg", value: "71%", change: "-3%", color: "blue" },
+    { title: "Active Pumps", value: "3", change: "", color: "green" },
+    { title: "Alerts", value: "1", change: "+1", color: "red" },
   ];
 
-  const [sensors, setSensors] = useState({
-    tiltX: 0,
-    tiltY: 0,
-    tiltZ: 0,
-  });
-
-  const [historyX, setHistoryX] = useState(Array(10).fill(0));
-  const [historyY, setHistoryY] = useState(Array(10).fill(0));
-  const [historyZ, setHistoryZ] = useState(Array(10).fill(0));
-
+  // Simulate live updates
   useEffect(() => {
-    function handleMotion(event) {
-      const x = event.accelerationIncludingGravity?.x ?? 0;
-      const y = event.accelerationIncludingGravity?.y ?? 0;
-      const z = event.accelerationIncludingGravity?.z ?? 0;
+    const interval = setInterval(() => {
+      setTempData((prev) =>
+        prev.map((d) => ({ ...d, temp: d.temp + (Math.random() > 0.5 ? 1 : -1) }))
+      );
+      setTankLevelData((prev) =>
+        prev.map((d) => ({ ...d, level: Math.min(100, Math.max(0, d.level + (Math.random() > 0.5 ? 1 : -1))) }))
+      );
+    }, 3000);
 
-      setSensors({ tiltX: x, tiltY: y, tiltZ: z });
-      setHistoryX((prev) => [...prev.slice(-9), x]);
-      setHistoryY((prev) => [...prev.slice(-9), y]);
-      setHistoryZ((prev) => [...prev.slice(-9), z]);
-    }
-
-    if (typeof window !== "undefined" && window.DeviceMotionEvent) {
-      window.addEventListener("devicemotion", handleMotion);
-    }
-
-    return () => {
-      if (typeof window !== "undefined" && window.DeviceMotionEvent) {
-        window.removeEventListener("devicemotion", handleMotion);
-      }
-    };
+    return () => clearInterval(interval);
   }, []);
 
-  const renderBars = (data, color) =>
-    data.map((v, i) => (
-      <motion.div
-        key={i}
-        initial={{ height: 0 }}
-        animate={{ height: Math.min(Math.abs(v) * 10, 100) }}
-        transition={{ duration: 0.3, type: "spring", stiffness: 120 }}
-        className={`flex-1 ${color} rounded`}
-      />
-    ));
-
-  const safeToFixed = (value) => (value != null ? value.toFixed(2) : "0.00");
-
   return (
-    <main className="min-h-screen bg-black text-white px-6 py-24 flex flex-col items-center">
-      <h1 className="text-5xl md:text-6xl font-extrabold text-cyan-400 text-center mb-12">
-        IT200 Plans & Live Demo
+    <main className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white px-4 md:px-8 py-16 flex flex-col items-center">
+      <h1 className="text-4xl md:text-6xl font-extrabold text-cyan-400 text-center mb-12 drop-shadow-lg">
+        IoT Cooling Tank Dashboard
       </h1>
 
-      {/* Plans */}
-      <div className="grid md:grid-cols-2 gap-10 w-full max-w-6xl mb-16">
-        {plans.map((plan, i) => (
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl mb-16">
+        {stats.map((stat, idx) => (
           <motion.div
-            key={i}
-            whileHover={{ scale: 1.05, boxShadow: "0px 12px 24px rgba(0,255,255,0.4)" }}
-            className={`p-8 rounded-3xl shadow-lg flex flex-col justify-between ${
-              plan.highlight ? "border-cyan-400 border-2 bg-gray-900" : "border-gray-700 bg-gray-800"
-            }`}
+            key={idx}
+            whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(0,255,255,0.5)" }}
+            className={`bg-gray-800/80 backdrop-blur-md rounded-3xl p-6 flex flex-col items-center shadow-xl transition`}
           >
-            <div className="mb-6">
-              <h3 className="text-3xl font-bold text-white mb-2">{plan.name}</h3>
-              <p className="text-4xl font-extrabold text-cyan-400">{plan.price}</p>
-            </div>
-
-            <ul className="mb-6 space-y-2 text-gray-300">
-              {plan.features.map((f, idx) => (
-                <li key={idx} className="before:content-['✓'] before:text-green-400 before:mr-2">
-                  {f}
-                </li>
-              ))}
-            </ul>
-
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              href="/connect-it200"
-              className="inline-block px-6 py-3 bg-cyan-400 text-black font-semibold rounded-full shadow-lg transition"
-            >
-              Connect IT200
-            </motion.a>
+            <p className="text-gray-400 uppercase text-sm mb-2">{stat.title}</p>
+            <p className={`text-3xl font-bold text-${stat.color}-400 mb-1`}>{stat.value}</p>
+            {stat.change && <p className={`text-${stat.color}-300 text-sm`}>{stat.change}</p>}
           </motion.div>
         ))}
       </div>
 
-      {/* Live sensor demo */}
-      <div className="w-full max-w-4xl">
-        <h2 className="text-3xl font-bold text-center text-cyan-400 mb-8">Live Phone Sensor Demo</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-gray-900 p-4 rounded-3xl shadow-lg flex flex-col items-center">
-            <h3 className="text-lg font-semibold text-gray-300 mb-2">Tilt X</h3>
-            <p className="text-2xl font-bold text-cyan-400 mb-4">{safeToFixed(sensors.tiltX)}</p>
-            <div className="w-full h-32 flex items-end gap-1">{renderBars(historyX, "bg-cyan-500")}</div>
-          </div>
-          <div className="bg-gray-900 p-4 rounded-3xl shadow-lg flex flex-col items-center">
-            <h3 className="text-lg font-semibold text-gray-300 mb-2">Tilt Y</h3>
-            <p className="text-2xl font-bold text-cyan-400 mb-4">{safeToFixed(sensors.tiltY)}</p>
-            <div className="w-full h-32 flex items-end gap-1">{renderBars(historyY, "bg-magenta-500")}</div>
-          </div>
-          <div className="bg-gray-900 p-4 rounded-3xl shadow-lg flex flex-col items-center">
-            <h3 className="text-lg font-semibold text-gray-300 mb-2">Tilt Z</h3>
-            <p className="text-2xl font-bold text-cyan-400 mb-4">{safeToFixed(sensors.tiltZ)}</p>
-            <div className="w-full h-32 flex items-end gap-1">{renderBars(historyZ, "bg-green-400")}</div>
-          </div>
+      {/* Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 w-full max-w-6xl mb-16">
+        {/* Temperature Line Chart */}
+        <div className="bg-gray-900/80 backdrop-blur-md rounded-3xl p-6 shadow-xl">
+          <h2 className="text-xl md:text-2xl font-bold text-cyan-300 mb-4 text-center">Temperature Over Time</h2>
+          <ResponsiveContainer width="100%" height={250}>
+            <LineChart data={tempData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#2c2c2c" />
+              <XAxis dataKey="time" stroke="#ccc" />
+              <YAxis stroke="#ccc" />
+              <Tooltip />
+              <Line type="monotone" dataKey="temp" stroke="#00ffff" strokeWidth={3} activeDot={{ r: 8 }} />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
+
+        {/* Tank Levels Bar Chart */}
+        <div className="bg-gray-900/80 backdrop-blur-md rounded-3xl p-6 shadow-xl">
+          <h2 className="text-xl md:text-2xl font-bold text-cyan-300 mb-4 text-center">Tank Levels</h2>
+          <ResponsiveContainer width="100%" height={250}>
+            <BarChart data={tankLevelData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#2c2c2c" />
+              <XAxis dataKey="tank" stroke="#ccc" />
+              <YAxis stroke="#ccc" />
+              <Tooltip />
+              <Bar dataKey="level" fill="#00ffff" barSize={40} radius={[8, 8, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Dashboard Info */}
+      <div className="max-w-4xl text-center text-gray-300 space-y-4">
+        <p>
+          This dashboard presents a real-time overview of IoT-enabled cooling tanks. It shows temperature trends, tank levels, active pumps, and alerts in a visually intuitive way.
+        </p>
+        <p>
+          Data is updated continuously to simulate live monitoring. The dashboard is fully responsive, so it adapts to any device size while keeping the layout clean and readable.
+        </p>
+        <p>
+          Future features can include historical trend analysis, predictive maintenance, and automated notifications for anomalies.
+        </p>
       </div>
     </main>
   );
