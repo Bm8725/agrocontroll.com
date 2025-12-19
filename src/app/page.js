@@ -252,7 +252,7 @@ export default function Home() {
         <motion.p initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="mb-10 max-w-2xl mx-auto text-gray-300">
           Contact us for embedded development, system integration, custom software, or industrial automation solutions.
         </motion.p>
-        <motion.a whileHover={{ scale: 1.05, boxShadow: '0px 8px 20px rgba(0,0,0,0.2)' }} href="mailto:contact@agrocontroll.com" className="px-8 py-4 rounded-full bg-emerald-600 text-white font-semibold uppercase tracking-wide hover:bg-emerald-500 transition shadow-md">
+        <motion.a whileHover={{ scale: 1.05, boxShadow: '0px 8px 20px rgba(0,0,0,0.2)' }} href="mailto:Lexsnowsrl@gmail.com" className="px-8 py-4 rounded-full bg-emerald-600 text-white font-semibold uppercase tracking-wide hover:bg-emerald-500 transition shadow-md">
           Contact Us
         </motion.a>
       </section>
