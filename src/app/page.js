@@ -41,29 +41,80 @@ export default function Home() {
   return (
     <main className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-indigo-900 to-purple-900 text-white overflow-hidden">
 
-      {/* HERO */}
-      <section className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-purple-900 via-indigo-900 to-emerald-800">
-        <div className="absolute inset-0 z-0">
-          <img src="/agro-controll1.jpg" alt="Hero Background" className="w-full h-full object-cover opacity-30" />
-        </div>
-        <div className="absolute inset-0 bg-black/30 z-10" />
-        <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="relative z-20 max-w-4xl mx-auto text-center">
-          <div className="mx-auto mb-6 w-20 h-20 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-xl">
-            <span className="text-white font-bold text-2xl">AG</span>
-          </div>
-          <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="text-4xl md:text-5xl font-bold text-white tracking-tight">
-            Industrial Automation
-            <span className="block text-emerald-300 mt-2 text-2xl md:text-3xl font-medium">Smart livestock farms solutions.</span>
-          </motion.h1>
-          <motion.p initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }} className="mt-6 text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
-            Automation solutions for farms, management and embedded systems enhancing productivity, efficiency, and sustainability in modern agriculture.
-          </motion.p>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6, duration: 0.8 }} className="mt-10 flex flex-wrap justify-center gap-4">
-            <a href="/outsourcing-datails/" className="px-8 py-3 rounded-full bg-pink-600 text-white font-semibold uppercase tracking-wide hover:bg-pink-800 transition shadow-md hover:shadow-lg">Explore services</a>
-            <a href="/contact/" className="px-8 py-3 rounded-full border border-gray-300 text-gray-100 font-semibold uppercase tracking-wide hover:bg-gray-100 hover:text-gray-900 transition">Contact us</a>
-          </motion.div>
-        </motion.div>
-      </section>
+{/* HERO */}
+<motion.section
+  initial={{ scale: 1 }}
+  animate={{ scale: [1, 1.03, 1] }}
+  transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+  className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-purple-900 via-indigo-900 to-emerald-800"
+>
+  <motion.div
+    animate={{ scale: [1, 1.1, 1] }}
+    transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+    className="absolute inset-0 z-0"
+  >
+    <img
+      src="/cow.jpg"
+      alt="Hero Background"
+      className="w-full h-full object-cover opacity-90"
+    />
+  </motion.div>
+
+  <div className="absolute inset-0 bg-black/30 z-10" />
+
+  <motion.div
+    initial={{ opacity: 0, y: 40 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1 }}
+    className="relative z-20 max-w-4xl mx-auto text-center"
+  >
+    <div className="mx-auto mb-6 w-20 h-20 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-xl">
+      <span className="text-white font-bold text-2xl">AG</span>
+    </div>
+
+    <motion.h1
+      initial={{ y: 20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: 0.2, duration: 0.8 }}
+      className="text-4xl md:text-5xl font-bold text-white tracking-tight"
+    >
+      Industrial Automation
+      <span className="block text-emerald-300 mt-2 text-2xl md:text-3xl font-medium">
+        Smart livestock farms solutions.
+      </span>
+    </motion.h1>
+
+    <motion.p
+      initial={{ y: 20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: 0.4, duration: 0.8 }}
+      className="mt-6 text-lg md:text-xl text-gray-200 max-w-3xl mx-auto"
+    >
+      Automation solutions for farms, management and embedded systems enhancing productivity, efficiency, and sustainability in modern agriculture.
+    </motion.p>
+
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.6, duration: 0.8 }}
+      className="mt-10 flex flex-wrap justify-center gap-4"
+    >
+      <a
+        href="/outsourcing-datails/"
+        className="px-8 py-3 rounded-full bg-pink-600 text-white font-semibold uppercase tracking-wide hover:bg-pink-800 transition shadow-md hover:shadow-lg"
+      >
+        Explore services
+      </a>
+      <a
+        href="/contact/"
+        className="px-8 py-3 rounded-full border border-gray-300 text-gray-100 font-semibold uppercase tracking-wide hover:bg-gray-100 hover:text-gray-900 transition"
+      >
+        Contact us
+      </a>
+    </motion.div>
+  </motion.div>
+</motion.section>
+
 
       {/* MODULES */}
       <section id="modules" className="py-32 px-6 space-y-32 max-w-6xl mx-auto">
