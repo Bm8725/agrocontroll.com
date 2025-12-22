@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "./header/header";
 import Footer from "./footer/footer";
 import "./globals.css";
+import GDPRBanner from "./gdpr/gdpr";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,7 +49,8 @@ export default function RootLayout({ children }) {
 
         {/* Main content */}
         <main className="flex-1">{children}</main>
-
+        {/* GDPR Banner */}
+        <GDPRBanner />
         {/* Footer */}
         <Footer />
       </body>
