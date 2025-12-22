@@ -1,184 +1,114 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Legend,
-} from "chart.js";
 import { FaIndustry, FaChartLine } from "react-icons/fa";
 import { GiCow, GiSprout } from "react-icons/gi";
+import { useEffect, useState } from "react";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
+const iconMap = { GiCow, GiSprout, FaIndustry, FaChartLine };
 
-// Helper functions for chart data
-const generateMilkData = () => Array.from({ length: 12 }, () => Math.floor(Math.random() * 50 + 50));
-const generateRevenueData = () => Array.from({ length: 12 }, () => Math.floor(Math.random() * 1000 + 2000));
-
-// Icon map for dynamic rendering
-const iconMap = {
-  GiCow: GiCow,
-  GiSprout: GiSprout,
-  FaIndustry: FaIndustry,
-  FaChartLine: FaChartLine,
-};
-
-// Industry data
 const industries = [
-  {
-    title: "Smart Livestock Farms",
-    desc: "Automated monitoring and control systems with IoT and AI, optimizing livestock health and productivity.",
-    icon: "GiCow",
-    gradient: "from-green-400 to-emerald-600",
-  },
-  {
-    title: "Greenhouse & Crop Automation",
-    desc: "SaaS-driven systems for irrigation, climate control, and growth analytics to maximize yield sustainably.",
-    icon: "GiSprout",
-    gradient: "from-lime-400 to-green-600",
-  },
-  {
-    title: "Industrial Agriculture",
-    desc: "Embedded systems and industrial firmware for large-scale farming, with remote monitoring and predictive maintenance.",
-    icon: "FaIndustry",
-    gradient: "from-blue-400 to-indigo-600",
-  },
-  {
-    title: "Data & Analytics",
-    desc: "AI-powered dashboards and reporting tools for actionable insights and data-driven farm management.",
-    icon: "FaChartLine",
-    gradient: "from-indigo-400 to-purple-600",
-  },
+  { title: "Smart Livestock Farms", desc: "Automated IoT & AI systems optimizing livestock health and productivity.", icon: "GiCow", color: "from-[#0F766E] to-[#14B8A6]" },
+  { title: "Greenhouse & Crop Automation", desc: "SaaS-driven climate control and growth analytics for sustainable yield.", icon: "GiSprout", color: "from-[#065F46] to-[#10B981]" },
+  { title: "Industrial Agriculture", desc: "Embedded systems with predictive maintenance for large-scale operations.", icon: "FaIndustry", color: "from-[#374151] to-[#6B7280]" },
+  { title: "Data & Analytics", desc: "AI dashboards providing actionable insights and farm intelligence.", icon: "FaChartLine", color: "from-[#4F46E5] to-[#8B5CF6]" },
 ];
 
-export default function Industries() {
-  const [chartData, setChartData] = useState({
-    labels: Array.from({ length: 12 }, (_, i) => `Hour ${i + 1}`),
-    datasets: [
-      {
-        label: "Milk Production (L)",
-        data: generateMilkData(),
-        borderColor: "#10B981",
-        backgroundColor: "rgba(16, 185, 129, 0.2)",
-        tension: 0.4,
-        pointRadius: 3,
-        pointHoverRadius: 6,
-      },
-      {
-        label: "Revenue ($)",
-        data: generateRevenueData(),
-        borderColor: "#3B82F6",
-        backgroundColor: "rgba(59, 130, 246, 0.2)",
-        tension: 0.4,
-        pointRadius: 3,
-        pointHoverRadius: 6,
-      },
-    ],
-  });
+function Particle({ x, y, size, color, delay }) {
+  return (
+    <motion.div
+      initial={{ y }}
+      animate={{ y: [y, y + 20, y] }}
+      transition={{ repeat: Infinity, duration: 4 + Math.random() * 3, delay }}
+      className={`absolute rounded-full ${color}`}
+      style={{ width: size, height: size, left: x }}
+    />
+  );
+}
 
-  // Chart live update
+export default function DarkLandingParticles() {
+  const [particles, setParticles] = useState([]);
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      setChartData((prev) => ({
-        ...prev,
-        datasets: prev.datasets.map((dataset) => ({
-          ...dataset,
-          data: dataset.data
-            .slice(1)
-            .concat(
-              Math.floor(
-                Math.random() *
-                  (dataset.label.includes("Milk") ? 50 : 1000) +
-                  (dataset.label.includes("Milk") ? 50 : 2000)
-              )
-            ),
-        })),
-      }));
-    }, 3000);
-    return () => clearInterval(interval);
+    const temp = Array.from({ length: 40 }).map(() => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      size: Math.random() * 6 + 4,
+      color: "bg-white/20",
+      delay: Math.random() * 5,
+    }));
+    setParticles(temp);
   }, []);
 
   return (
-    <section className="relative py-32 px-6 bg-gray-50 overflow-hidden">
-      {/* Background shapes */}
-      <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-indigo-900 to-transparent pointer-events-none -z-10" />
-      <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-gradient-to-tr from-green-400 to-emerald-600 opacity-30 blur-3xl pointer-events-none -z-20" />
-      <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-gradient-to-tr from-indigo-400 to-purple-600 opacity-30 blur-3xl pointer-events-none -z-20" />
+    <div className="w-full bg-gray-900 text-white overflow-x-hidden relative min-h-screen">
+      {/* Animated particles */}
+      {particles.map((p, i) => (
+        <Particle key={i} {...p} />
+      ))}
 
-      {/* Section title */}
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-16"
-      >
-        Industries & Solutions
-      </motion.h2>
-
-      {/* Industry cards with dynamic gradient */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-10 max-w-7xl mx-auto">
-        {industries.map((item, idx) => {
-          const IconComponent = iconMap[item.icon];
-          return (
-            <motion.div
-              key={idx}
-              initial={{ y: 40, opacity: 0, scale: 0.95 }}
-              whileInView={{ y: 0, opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.2, duration: 0.6 }}
-              className={`relative p-8 rounded-3xl shadow-xl bg-gradient-to-br ${item.gradient} text-white flex flex-col items-center text-center transition-all duration-500 hover:scale-105 hover:shadow-2xl`}
-            >
-              <div className="w-24 h-24 flex items-center justify-center rounded-full bg-white/20 shadow-lg mb-4">
-                <IconComponent size={36} />
-              </div>
-              <h4 className="text-xl font-semibold mb-3">{item.title}</h4>
-              <p className="text-sm">{item.desc}</p>
-              <div className="absolute -top-6 -right-6 w-16 h-16 rounded-full bg-white/20 blur-xl pointer-events-none" />
-            </motion.div>
-          );
-        })}
+      {/* Gradient background blobs */}
+      <div className="absolute top-0 left-0 w-full h-full -z-10">
+        <div className="absolute w-[1200px] h-[600px] rounded-full bg-gradient-to-tr from-blue-500 via-purple-500 to-indigo-500 opacity-20 blur-3xl animate-pulse-slow -top-40 -left-64"></div>
+        <div className="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-teal-500 via-green-500 to-lime-400 opacity-15 blur-3xl animate-pulse-slow -bottom-64 -right-64"></div>
       </div>
 
-      {/* Live Chart */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="mt-32 max-w-5xl mx-auto bg-white rounded-3xl shadow-2xl p-8"
-      >
-        <h3 className="text-2xl font-semibold mb-6 text-gray-900 text-center">Live Monitoring</h3>
-        <Line
-          data={chartData}
-          options={{
-            responsive: true,
-            plugins: {
-              legend: { position: "top" },
-              tooltip: { mode: "index", intersect: false },
-            },
-            interaction: {
-              mode: "nearest",
-              axis: "x",
-              intersect: false,
-            },
-            animation: { duration: 500, easing: "easeInOutQuad" },
-            scales: {
-              y: {
-                beginAtZero: true,
-                grid: { color: "#E5E7EB" },
-              },
-              x: {
-                grid: { color: "#E5E7EB" },
-              },
-            },
-          }}
-        />
-      </motion.div>
-    </section>
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-6">
+        <motion.h1 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
+          Transforming Agriculture<br/>for a Smarter Future
+        </motion.h1>
+        <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.8 }} className="max-w-3xl text-gray-300 text-lg md:text-xl mb-12">
+          Leverage AI, IoT, and analytics to optimize your farm operations, increase yield, and make data-driven decisions seamlessly.
+        </motion.p>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8 }} className="flex flex-col sm:flex-row gap-6 justify-center">
+          <a href="#industries" className="px-10 py-4 rounded-full bg-teal-500 text-gray-900 font-semibold hover:bg-teal-400 shadow-lg transition-all duration-300">
+            Get Started
+          </a>
+          <a href="#learn-more" className="px-10 py-4 rounded-full border border-gray-700 text-gray-300 font-semibold hover:bg-gray-700 transition-all duration-300">
+            Learn More
+          </a>
+        </motion.div>
+      </section>
+
+      {/* Industries Section */}
+      <section id="industries" className="py-32 px-6">
+        <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-4xl md:text-5xl font-bold text-center mb-20">
+          Our Solutions
+        </motion.h2>
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+          {industries.map((item, idx) => {
+            const Icon = iconMap[item.icon];
+            return (
+              <motion.div key={idx} initial={{ y: 40, opacity: 0, scale: 0.95 }} whileInView={{ y: 0, opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: idx * 0.15, duration: 0.6 }} className="relative p-8 rounded-3xl bg-gray-900/40 backdrop-blur-md border border-gray-700 shadow-lg flex flex-col items-center text-center cursor-pointer hover:scale-105 hover:shadow-2xl transition-transform duration-500 group hover:shadow-teal-500/50">
+                <div className={`w-24 h-24 flex items-center justify-center rounded-full bg-gradient-to-br ${item.color} text-white mb-4 shadow-lg group-hover:scale-110 transition-transform duration-500`}>
+                  <Icon size={36} />
+                </div>
+                <h4 className="text-xl font-bold mb-2 group-hover:text-teal-400 transition-colors duration-500">{item.title}</h4>
+                <p className="text-gray-300 text-sm">{item.desc}</p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-32 px-6 bg-gray-800 text-center">
+        <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-4xl md:text-5xl font-bold mb-6">
+          Ready to Transform Your Farm?
+        </motion.h2>
+        <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.8 }} className="text-gray-300 text-lg md:text-xl mb-10">
+          Join hundreds of farms improving productivity with smart solutions and real-time insights.
+        </motion.p>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8 }} className="flex flex-col sm:flex-row justify-center gap-6">
+          <a href="#get-started" className="px-10 py-4 rounded-full bg-teal-500 text-gray-900 font-semibold hover:bg-teal-400 transition-all duration-300 shadow-lg">
+            Get Started
+          </a>
+          <a href="#learn-more" className="px-10 py-4 rounded-full border border-gray-700 text-gray-300 font-semibold hover:bg-gray-700 transition-all duration-300">
+            Learn More
+          </a>
+        </motion.div>
+      </section>
+    </div>
   );
 }
